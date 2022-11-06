@@ -43,7 +43,7 @@ class CombineMethod(ViewSolvData):
         r = 1 
         while (self.e <= r):
             x1 = x0 - (self.f(x0)) / (5 - 8 / x0)
-            z = c - (self.f(c)) * (c - x0) / ((self.f(c)) - (self.f(x0)))
+            z = c - (self.f(c)) * (c - x0) / ((self.f(x0)) - (self.f(c)))
             r = abs(x1 - z) 
             x0 = x1
             c = z              
@@ -62,8 +62,8 @@ class CombineMethod(ViewSolvData):
         c = self.a 
         r = 1 
         while (self.e <= r):
-            x1 = x0 - (c - x0) / ((self.f(c)) - (self.f(x0))) # хорда 
-            z = c - (self.f(c)) / (5 - 8 / c) # касательная
+            x1 = x0 - ((self.f(x0)) / (5 - 8 / x0)) # хорда 
+            z = c - (self.f(c)) * (x0 - c) / (self.f(x0) - self.f(c)) # касательная
             r = abs(x1 - z) 
             x0 = x1
             c = z              
