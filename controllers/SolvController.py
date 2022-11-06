@@ -17,9 +17,13 @@ class SolvControll(CombineMethod, SimpleMethod):
     def get_data_combine_method(self):
         self.get_about_combine_method()
         self.get_start_data()
+    
+    def get_data_simple_iteration_method(self): 
+        self.get_about_simple_iteration_method()
+        self.get_start_data()
 
 if __name__ == "__main__":
     solv = SolvControll(0.00001, 3.0, 3.9)
-
     solv.get_data_combine_method()
     solv.set_data_combine_method()
+    
