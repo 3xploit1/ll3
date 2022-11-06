@@ -1,5 +1,7 @@
 from colorama import Fore, Back, Style, init
 import sympy as sp
+import math 
+
 
 class AbstractSolver():
     '''
@@ -10,7 +12,6 @@ class AbstractSolver():
         - левый конец интервала -> a
         - правый конец интервала -> b 
     '''
-
     def __init__(self, e, a, b):
         init()  # colorama
         self.e = e
@@ -20,7 +21,7 @@ class AbstractSolver():
         self.func = 5 * self.x - 8 * sp.ln(self.x) - 8
         
     def f(self, x):
-        return 5 * x - 8 * sp.ln(x) - 8
+        return 5 * x - 8 * math.log(x) - 8
     
     def get_solv(self):
         derivative_f = self.func.diff(self.x)

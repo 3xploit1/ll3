@@ -43,7 +43,7 @@ class CombineMethod(ViewSolvData):
         r = 1 
         while (self.e <= r):
             x1 = x0 - (self.f(x0)) / (5 - 8 / x0)
-            z = c - (self.f(c)) * (c - x0) / ((self.f(x0)) - (self.f(c)))
+            z = c - (self.f(c)) * ((c - x0) / ((self.f(c)) - (self.f(x0))))
             r = abs(x1 - z) 
             x0 = x1
             c = z              
@@ -58,17 +58,17 @@ class CombineMethod(ViewSolvData):
         Неподвижна точка b
         '''
         iteration = 1
-        x0 = self.b
-        c = self.a 
+        x0 = self.a
+        c = self.b
         r = 1 
         while (self.e <= r):
-            x1 = x0 - ((self.f(x0)) / (5 - 8 / x0)) # хорда 
-            z = c - (self.f(c)) * (x0 - c) / (self.f(x0) - self.f(c)) # касательная
+            x1 = x0 - (c - x0) / (self.f(c) - self.f(x0)) # хорда 
+            z = c - (self.f(c)) / (5 - 8 / c) # касательная
             r = abs(x1 - z) 
             x0 = x1
             c = z              
             self.table_combine_method.add_row([iteration, x0, c, x1, z, r])
-            iteration += 1    
+            iteration += 1   
 
         print(self.table_combine_method)
         print(f'Ответ получен в {iteration - 1} итерации\nОтвет: {Fore.GREEN}{x1}{Style.RESET_ALL}')
