@@ -1,6 +1,6 @@
 from colorama import Fore, Back, Style, init
 from prettytable import PrettyTable
-from models.AbstractModel import *
+from ll3.models.AbstractModel import *
 
 class ViewSolvData(AbstractSolver):
 
@@ -19,7 +19,7 @@ class ViewSolvData(AbstractSolver):
 
     def get_about_simple_iteration_method(self):
         print(f"{Fore.GREEN}----------------------------------------{Style.RESET_ALL}")
-        print('Метод простой итерации\n')
+        print('Метод простой итерации')
         print(f"{Fore.GREEN}----------------------------------------{Style.RESET_ALL}\n")
 
     def get_print_combine_method(self,
@@ -40,4 +40,21 @@ class ViewSolvData(AbstractSolver):
               f"f`(b) = {f_b_derivative}\n"
               f"f``(a) = {f_a_derivative_2_order}\n"
               f"f``(b) = {f_b_derivative_2_order}\n")
-    
+
+    def get_print_derivative_phi(self):
+        print(f"fi`(x) = {self.get_derivative_phi()}\n")
+
+    def get_print_const(self):
+        print(f"k = {self.get_constant()}\n")
+
+    def get_print_fi_a(self):
+        print(f"fi({self.a}) = {self.get_fi_a()}\n")
+
+    def get_print_fi_b(self):
+        print(f"fi({self.b}) = {self.get_fi_b()}\n")
+
+    # def check_convergence(self):
+    #     if (  > 1):
+    #         print('Сходимость односторонняя')
+    #     else:
+    #         print('Сходимость двусторонняя')

@@ -1,7 +1,7 @@
 from colorama import Fore, Back, Style, init
 from prettytable import PrettyTable
 import sympy as sp
-from views.SolveView import ViewSolvData
+from ll3.views.SolveView import ViewSolvData
 
 class CombineMethod(ViewSolvData): 
     def __init__(self, e, a, b):
@@ -31,46 +31,34 @@ class CombineMethod(ViewSolvData):
         :`r` - итерационная разность
         '''
         self.table_combine_method = PrettyTable()
-        self.table_combine_method.field_names = ['iteration', 'x0', 'c', 'x1', 'z', 'r']            
-    
+        self.table_combine_method.field_names = ['n', 'a', 'b', 'f(a)', 'f(b)', 'delta']
+
     def get_solv_combine_method_stationary_a(self):
         '''
         Неподвижна точка a 
         '''
-        iteration = 1
-        x0 = self.a
-        c = self.b 
-        r = 1 
-        while (self.e <= r):
-            x1 = x0 - (self.f(x0)) / (5 - 8 / x0)
-            z = c - (self.f(c)) * ((c - x0) / ((self.f(c)) - (self.f(x0))))
-            r = abs(x1 - z) 
-            x0 = x1
-            c = z              
-            self.table_combine_method.add_row([iteration, x0, c, x1, z, r])
-            iteration += 1
-            
+        n = 0
+        self.table_combine_method.add_row([n, self.a, self.b, self.f(self.a), self.f(self.b), abs(self.a - self.b)])
+        while abs(self.a - self.b) > self.e:
+            b1 = self.chordb(self.a, self.b)
+            a1 = self.newton(self.b)
+            self.a = a1
+            self.b = b1
+            n += 1
+            self.table_combine_method.add_row([n, self.a, self.b, self.f(self.a), self.f(self.b), abs(self.a - self.b)])
         print(self.table_combine_method)
-        print(f'Ответ: {Fore.GREEN}{x1}{Style.RESET_ALL}')
 
     def get_solv_combine_method_stationary_b(self):
         '''
         Неподвижна точка b
         '''
-        iteration = 1
-        x0 = self.a
-        c = self.b
-        r = 1 
-        while (self.e <= r):
-            x1 = x0 - (c - x0) / (self.f(c) - self.f(x0)) # хорда 
-            z = c - (self.f(c)) / (5 - 8 / c) # касательная
-            r = abs(x1 - z) 
-            x0 = x1
-            c = z              
-            self.table_combine_method.add_row([iteration, x0, c, x1, z, r])
-            iteration += 1   
-
+        n = 0
+        self.table_combine_method.add_row([n, self.a, self.b, self.f(self.a), self.f(self.b), abs(self.a - self.b)])
+        while abs(self.a - self.b) > self.e:
+            a1 = self.chorda(self.a, self.b)
+            b1 = self.newton(self.b)
+            self.a = a1
+            self.b = b1
+            n += 1
+            self.table_combine_method.add_row([n, self.a, self.b, self.f(self.a), self.f(self.b), abs(self.a - self.b)])
         print(self.table_combine_method)
-        print(f'Ответ получен в {iteration - 1} итерации\nОтвет: {Fore.GREEN}{x1}{Style.RESET_ALL}')
-
-        
