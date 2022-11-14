@@ -41,20 +41,15 @@ class ViewSolvData(AbstractSolver):
               f"f``(a) = {f_a_derivative_2_order}\n"
               f"f``(b) = {f_b_derivative_2_order}\n")
 
-    def get_print_derivative_phi(self):
-        print(f"fi`(x) = {self.get_derivative_phi()}\n")
-
+    def get_print_n(self):
+        print(f"N = {self.get_n()}\n")
+    
     def get_print_const(self):
-        print(f"k = {self.get_constant()}\n")
+        print(f"k = {self.get_k()}\n")
+    
+    def get_print_phi_a(self):
+        print(f"fi({self.a}) = {self.get_phi_a()}\n")
 
-    def get_print_fi_a(self):
-        print(f"fi({self.a}) = {self.get_fi_a()}\n")
-
-    def get_print_fi_b(self):
-        print(f"fi({self.b}) = {self.get_fi_b()}\n")
-
-    # def check_convergence(self):
-    #     if (  > 1):
-    #         print('Сходимость односторонняя')
-    #     else:
-    #         print('Сходимость двусторонняя')
+    def get_print_phi_b(self):
+        print(f"fi({self.b}) = {self.get_phi_b()}\n")
+        

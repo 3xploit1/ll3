@@ -16,38 +16,41 @@ class SimpleMethod(ViewSolvData):
         self.table_simple_iteration_method.field_names = [
             'n', 'x(n)', 'phi(xn)', 'delta']
 
-
-    def simp_solv(self):
-        n = 0 
-        fixn = self.get_constant()
-        # self.table_simple_iteration_method.add_row([n, xn, fixn, abs(xn - fixn)])
-        while True: 
+    def check_convergence(self):
+        if (self.get_phi_a() or self.get_phi_b() < 0 ): 
+            self.get_solve_simple_iteration_method_two_side()
+        elif ((self.get_phi_a() or self.get_phi_b()) > 0 ):
+            self.get_solve_simple_iteration_method_monoton()
+               
+    def get_solve_simple_iteration_method_monoton(self):
+        '''
+        Монотонная сходимость 
+        '''
+        n = 0
+        xn = self.a 
+        fixn = self.phi(xn)
+        self.table_simple_iteration_method.add_row([n, xn, fixn, abs(fixn - xn)])
+        while (1 - abs(max(self.get_phi_a, self.get_phi_b)) * (abs(fixn - xn)) >= self.e):
             xn = fixn 
             fixn = self.phi(xn)
             n += 1 
-            self.table_simple_iteration_method.add_row([n, xn, fixn, abs(xn - fixn)])
-            if (abs(xn - fixn) < self.e): 
-                break
+            self.table_simple_iteration_method.add_row([n, xn, fixn, abs(fixn - xn)])
         print(self.table_simple_iteration_method)
-    # def get_solve_simple_iteration_method_one_side(self):
-    #     '''
-    #     Односторонняя сходимость
-    #     '''
 
-    #     n = 0
-    #     while abs(self.a - self.b) > self.e:
-    #         a1 =
-    #         self.a = a1
-    #         self.b = b1
-    #         n += 1
-    #         self.table_combine_method.add_row([n, self.a, self.b, self.f(self.a), self.f(self.b), abs(self.a - self.b)])
-    #     print(self.table_combine_method)
-
-
-    # def get_solve_simple_iteration_method_one_side(self):
-    #     '''
-    #     Двусторонняя сходимость
-    #     '''
+    def get_solve_simple_iteration_method_two_side(self):
+        '''
+        Двусторонняя сходимость
+        '''
+        n = 0
+        xn = self.a 
+        fixn = self.phi(xn)
+        self.table_simple_iteration_method.add_row([n, xn, fixn, abs(fixn - xn)])
+        while (abs(fixn - xn) >= self.e): 
+            xn = fixn 
+            fixn = self.phi(xn)
+            n += 1 
+            self.table_simple_iteration_method.add_row([n, xn, fixn, abs(fixn - xn)])
+        print(self.table_simple_iteration_method)
 
 
         

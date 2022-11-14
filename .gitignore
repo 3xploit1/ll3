@@ -1,2 +1,6 @@
 .vsode
 .__pycache__
+models/__pycache__/CombineModel.cpython-310.pyc
+models/__pycache__/SimpldeModel.cpython-310.pyc
+models/__pycache__/AbstractModel.cpython-310.pyc
+views/__pycache__/SolveView.cpython-310.pyc

@@ -36,32 +36,28 @@ class AbstractSolver():
     def chordb(self, x, b):
         return x - self.f(x) * (b - x) / (self.f(b) - self.f(x))
 
-    def fi(self, x):
-        return 1 + self.get_constant() * self.f1(x)
-
 
     def phi(self, x): 
         '''
         Канонический вид
-        5 * x - 8 * math.log(x) - 8
-        f(x) = x 
-        x = 5 + 8 * math.log(x) - 8
         '''
-        return 8 * math.log(x) - 8 / 5
+        return x - (5 * x - 8 * math.log(x) - 8)/self.get_k() 
 
-    def get_constant(self):
+    def get_n(self): 
         derivative_f, derivative_f_2_order, f_a, f_b, f_a_derivative, f_b_derivative, f_a_derivative_2_order, f_b_derivative_2_order = self.get_solv()
-        return abs(max(f_a_derivative, f_b_derivative))/2 
+        return max(f_a_derivative, f_b_derivative)
 
-    # def get_derivative_phi(self):
-    #     return self.ph.diff()
+    def get_k(self):
+        return ( self.get_n() / 2 ) + 0.5 
 
-    def get_fi_a(self):
-        return self.fi(self.a)
-
-    def get_fi_b(self):
-        return self.fi(self.b)
-
+    def get_phi_a(self):
+        derivative_f, derivative_f_2_order, f_a, f_b, f_a_derivative, f_b_derivative, f_a_derivative_2_order, f_b_derivative_2_order = self.get_solv()
+        return 1 - f_a_derivative / self.get_k()
+    
+    def get_phi_b(self):
+        derivative_f, derivative_f_2_order, f_a, f_b, f_a_derivative, f_b_derivative, f_a_derivative_2_order, f_b_derivative_2_order = self.get_solv()
+        return 1 - f_b_derivative / self.get_k()
+        
     def get_solv(self):
         derivative_f = self.func.diff(self.x)
         derivative_f_2_order = derivative_f.diff(self.x)

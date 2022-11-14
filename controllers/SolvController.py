@@ -24,11 +24,12 @@ class SolvControll(CombineMethod, SimpleMethod):
         data = self.get_solv()
         self.get_print_combine_method(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7])
         self.set_table_simple_iteration_method()
+
+        self.get_print_n()
         self.get_print_const()
-        self.simp_solv()
-        # self.get_print_fi_a()
-        # self.get_print_fi_b()
-        # self.check_convergence()
+        self.get_print_phi_a()
+        self.get_print_phi_b()
+        self.check_convergence()
         return self
 
     def get_data_simple_iteration_method(self): 
